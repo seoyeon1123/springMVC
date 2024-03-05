@@ -42,6 +42,6 @@ public class FrontControllerServletV2 extends HttpServlet {
         //가져온 구현체의 오버라이딩 메소드 실행
         //v2 : 기존과 다르게 viewName을 셋팅한 MyView 객체를 return받은 후, render()를 실행한다.
         MyView view = controller.process(request, response);
-        view.render(request, response);
+        //view.render(request,response);
     }
 }

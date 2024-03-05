@@ -15,19 +15,14 @@ public class MyView {
         this.viewPath = viewPath;
     }
 
-    //각 컨트롤러마다 호출했던 forward 로직을 여기서 처리한다.
-    public void render(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+        modelToRequestAttribute(model, request);
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
     }
 
-    public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        modelToRequestAttribute(model, request);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
-        dispatcher.forward(request,response);
-    }
-
+    //컨트롤러에서 model에 담은 객체들을 꺼내 setAttribute 처리하여 JSP에서 사용할 수 있도록 처리
     private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
-        model.forEach(request::setAttribute);
+        model.forEach((key, value) -> request.setAttribute(key, value));
     }
 }
